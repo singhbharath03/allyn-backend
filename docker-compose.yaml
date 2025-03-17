@@ -11,6 +11,8 @@ services:
       - .env.local
       # Uncomment this for prod.
       # - .env
+    depends_on:
+      - db
 
   nginx:
     image: nginx:latest
