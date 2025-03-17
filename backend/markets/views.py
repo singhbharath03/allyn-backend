@@ -19,11 +19,6 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.post("/test/")
-async def test(request: Request):
-    return {"message": "Hello, World!"}
-
-
 @router.post("/attention/")
 async def create_attention_market(
     request: CreateAttentionMarketRequest,
