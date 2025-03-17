@@ -1,0 +1,1 @@
+exec docker exec -it allyn-backend-django-1 python3 manage.py "$@"
