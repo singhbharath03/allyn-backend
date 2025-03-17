@@ -1,5 +1,7 @@
 import logging
+from typing import List
 
+from markets.typing import CreateAttentionMarketResponse
 from markets.models import AttentionMarket
 from markets.client import get_sonic_testnet_client
 from markets.constants import DEFAULT_DECIMALS
@@ -9,6 +11,21 @@ from spl.token.constants import TOKEN_PROGRAM_ID
 from spl.token.instructions import get_associated_token_address
 
 logger = logging.getLogger(__name__)
+
+
+async def get_attention_markets() -> List[CreateAttentionMarketResponse]:
+    markets = []
+    async for market in AttentionMarket.objects.all():
+        markets.append(
+            CreateAttentionMarketResponse(
+                id=market.id,
+                slug=market.slug,
+                image_url=market.image_url,
+                address=market.address,
+            )
+        )
+
+    return markets
 
 
 async def create_attention_market(slug: str, image_url: str) -> AttentionMarket:
@@ -57,4 +74,4 @@ async def create_and_mint_token() -> str:
 
     logger.info("Minted tokens successfully")
 
-    return token_client.pubkey
+    return str(token_client.pubkey)

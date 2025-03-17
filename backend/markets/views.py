@@ -1,6 +1,10 @@
 import logging
+from typing import List
 
-from markets.api import create_attention_market as create_attention_market_api
+from markets.api import (
+    create_attention_market as create_attention_market_api,
+    get_attention_markets as get_attention_markets_api,
+)
 from markets.typing import CreateAttentionMarketRequest, CreateAttentionMarketResponse
 from fastapi import APIRouter, Request, FastAPI, HTTPException
 
@@ -26,3 +30,10 @@ async def create_attention_market(
         image_url=market.image_url,
         address=market.address,
     )
+
+
+@router.get("/attention/")
+async def get_attention_markets(
+    request: Request,
+) -> List[CreateAttentionMarketResponse]:
+    return await get_attention_markets_api()
