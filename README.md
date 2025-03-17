@@ -10,7 +10,7 @@
 
 2. Create a `.env.local` file with the required environment variables:
    ```
-   PRIVATE_KEY=your_private_key_here
+   PRIVATE_KEY=your_sonic_wallet_private_key_here
    ```
 
 3. Build and start the Docker containers:
