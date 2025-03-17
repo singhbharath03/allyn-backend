@@ -1,5 +1,6 @@
 import logging
 
+from markets.models import AttentionMarket
 from markets.client import get_sonic_testnet_client
 from markets.constants import DEFAULT_DECIMALS
 from markets.keypair import get_keypair
@@ -8,6 +9,17 @@ from spl.token.constants import TOKEN_PROGRAM_ID
 from spl.token.instructions import get_associated_token_address
 
 logger = logging.getLogger(__name__)
+
+
+async def create_attention_market(slug: str, image_url: str) -> AttentionMarket:
+    token_address = await create_and_mint_token()
+
+    # create a new attention market
+    market = await AttentionMarket.objects.acreate(
+        slug=slug, image_url=image_url, address=token_address
+    )
+
+    return market
 
 
 async def create_and_mint_token() -> str:
